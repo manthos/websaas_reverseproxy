@@ -1,0 +1,70 @@
+{
+    "type": "object",
+    "title": "Audio-to-Video",
+    "fields": [
+        {
+            "id": "audiomedia",
+            "type": "fileUpload",
+            "label": "Audio Upload",
+            "maxSize": 10,
+            "required": true,
+            "helperText": "Upload an audio file",
+            "acceptedFileTypes": ["audio/*"]
+        },
+        {
+            "id": "imagemedia",
+            "type": "fileUpload",
+            "label": "Image Upload",
+            "maxSize": 1,
+            "required": true,
+            "helperText": "Upload an image background file",
+            "acceptedFileTypes": ["image/*"]
+        },
+        {
+            "id": "texfilemedia",
+            "type": "fileUpload",
+            "label": "Lyrics Upload",
+            "maxSize": 0.01,
+            "required": true,
+            "helperText": "Upload a lyrics/captions file",
+            "acceptedFileTypes": ["text/plain"]
+        },
+        {
+            "id": "font_color",
+            "type": "colorPicker",
+            "label": "Font color for caption",
+            "default": "#FFFFFF",
+            "required": true
+        },
+        {
+            "id": "bg_alpha",
+            "max": 1,
+            "min": 0,
+            "step": 0.1,
+            "type": "inputSlider",
+            "label": "250 Khz (db)",
+            "default": 0.5,
+            "required": true
+        }
+    ],
+    "formId": "audiovideo-processing-form",
+    "output": [{ "id": "processedVideo", "type": "video", "format": "mp4", "storage": { "path": "/uploads/", "type": "filesystem" } }],
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "actions": {
+        "submit": { "method": "POST", "endpoint": "https://aiservice.openresell.com:20400/process-audiovideo/" },
+        "stopaction": { "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/stop/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8' --data-urlencode 'disassociate_resources=true'", "resultvariable": "success" },
+        "testaction": { "command": "curl --location --request POST 'https://dashboard.tensordock.com/api/v0/auth/test' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN'", "resultvariable": "success" },
+        "startaction": { "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/start/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8'", "resultvariable": "success" },
+        "statusaction": { "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/get/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8'", "resultvariable": "virtualmachines:status" }
+    },
+    "command": "python spectrum_video.py <audiomedia> --background_image=<imagemedia> --lyrics_file=<texfilemedia> --font_color='<font_color>' --background_alpha=<bg_alpha> <processedVideo> --debug",
+    "description": "Form for Audio to Video model",
+    "role_limits": {
+        "pro": [{ "type": "media", "value": "300", "attribute": "duration" }],
+        "basic": [{ "type": "media", "value": "120", "attribute": "duration" }],
+        "premium": [{ "type": "media", "value": "210", "attribute": "duration" }],
+        "registered": [{ "type": "media", "value": "30", "attribute": "duration" }]
+    },
+    "allowed_roles": ["registered", "basic", "premium", "pro"],
+    "main_input_id": "audiomedia"
+}

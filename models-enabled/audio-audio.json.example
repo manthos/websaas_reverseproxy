@@ -1,0 +1,136 @@
+{
+    "type": "object",
+    "title": "Audio-to-Audio",
+    "fields": [
+        {
+            "id": "media",
+            "type": "fileUpload",
+            "label": "Media Upload",
+            "maxSize": 10,
+            "required": true,
+            "helperText": "Upload an audio file",
+            "acceptedFileTypes": [
+                "audio/*"
+            ]
+        },
+        {
+            "id": "khz0",
+            "max": 20,
+            "min": -20,
+            "type": "number",
+            "label": "0 Khz (db)",
+            "default": 0,
+            "required": true
+        },
+        {
+            "id": "khz250",
+            "max": 20,
+            "min": -20,
+            "type": "number",
+            "label": "250 Khz (db)",
+            "default": 0,
+            "required": true
+        },
+        {
+            "id": "khz1000",
+            "max": 20,
+            "min": -20,
+            "type": "number",
+            "label": "1000 Khz (db)",
+            "default": 0,
+            "required": true
+        },
+        {
+            "id": "khz4000",
+            "max": 20,
+            "min": -20,
+            "type": "number",
+            "label": "4000 Khz (db)",
+            "default": 0,
+            "required": true
+        },
+        {
+            "id": "khz16000",
+            "max": 20,
+            "min": -20,
+            "type": "number",
+            "label": "16000 Khz (db)",
+            "default": 0,
+            "required": true
+        }
+    ],
+    "formId": "audio-processing-form",
+    "output": [
+        {
+            "id": "processedMedia",
+            "type": "audio",
+            "format": "mp3",
+            "storage": {
+                "path": "/uploads/",
+                "type": "filesystem"
+            }
+        }
+    ],
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "actions": {
+        "submit": {
+            "method": "POST",
+            "endpoint": "https://aiservice.openresell.com:20400/process-audio/"
+        },
+        "stopaction": {
+            "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/stop/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8' --data-urlencode 'disassociate_resources=true'",
+            "resultvariable": "success"
+        },
+        "testaction": {
+            "command": "curl --location --request POST 'https://dashboard.tensordock.com/api/v0/auth/test' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN'",
+            "resultvariable": "success"
+        },
+        "startaction": {
+            "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/start/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8'",
+            "resultvariable": "success"
+        },
+        "statusaction": {
+            "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/get/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8'",
+            "resultvariable": "virtualmachines:status"
+        }
+    },
+    "command": "ffmpeg -y -i <media> -af \"firequalizer=gain_entry='entry(0,<khz0>);entry(250,<khz250>);entry(1000,<khz1000>);entry(4000,<khz4000>);entry(16000,<khz16000>)'\" <processedMedia>",
+    "description": "Form for AI Audio placeholder model",
+    "role_limits": {
+        "pro": [
+            {
+                "type": "media",
+                "value": "300",
+                "attribute": "duration"
+            }
+        ],
+        "basic": [
+            {
+                "type": "media",
+                "value": "120",
+                "attribute": "duration"
+            }
+        ],
+        "premium": [
+            {
+                "type": "media",
+                "value": "210",
+                "attribute": "duration"
+            }
+        ],
+        "registered": [
+            {
+                "type": "media",
+                "value": "30",
+                "attribute": "duration"
+            }
+        ]
+    },
+    "allowed_roles": [
+        "registered",
+        "basic",
+        "premium",
+        "pro"
+    ],
+    "main_input_id": "media"
+}

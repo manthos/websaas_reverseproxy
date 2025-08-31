@@ -1,0 +1,72 @@
+Copyright (c) 2025 WebSaaS.ai
+
+Permission is hereby granted, free of charge, to Registered Users at WebSaaS.ai (defined below) to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so, subject to the following
+conditions and the disclaimers below.
+
+Definitions
+- "Software" means the contents of this repository and any derivative works.
+- "Registered Users" means individuals or organizations that have an active, registered
+  account at https://websaas.ai and have accepted WebSaaS.ai's applicable terms of service.
+
+License Grant for Registered Users
+---------------------------------
+Registered Users are granted all rights and permissions provided by the MIT License
+without additional conditions. In other words: Registered Users may use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and permit
+persons to whom the Software is furnished to do so, subject only to the warranty
+disclaimer and limitation of liability set out below.
+
+License Grant for All Other Users
+--------------------------------
+All other users (those who are not Registered Users) are granted the same rights as above
+(the rights granted by the MIT License) with one additional condition: if you publish the
+Software or any derivative work on the web or otherwise make it publicly accessible on a
+website, web service, or similar online platform, you must include a visible attribution
+notice on the published location stating:
+
+    "Contains software from WebSaaS.ai — https://websaas.ai"
+
+The attribution must be reasonably visible to users of the published site or service (for
+example, in a README linked from the project page, an "About" page, a footer, or similar).
+This attribution requirement does not apply to private/internal use or distribution that is
+not publicly accessible on the web.
+
+No endorsement
+--------------
+Except for the required attribution noted above, nothing in this license implies endorsement
+by WebSaaS.ai of your use of the Software, your derivatives, or your services.
+
+Scope; Third-Party Components
+-----------------------------
+This License applies only to the original source code, documentation, and other materials
+authored and contributed by WebSaaS.ai or its contributors that are contained in this
+repository ("Contributed Source"). It does NOT apply to third-party software, libraries,
+modules, plugins, binaries, or other components that the Software depends on or references
+("Third-Party Components"). Third-Party Components are licensed separately under their own
+licenses as provided by their respective copyright holders.
+
+Nothing in this License: (a) changes the license terms of any Third-Party Components; (b)
+grants you rights in Third-Party Components beyond those provided by their upstream
+licenses; or (c) should be interpreted to mean that Third-Party Components are re-licensed
+under this License. If you redistribute or bundle any Third-Party Components with the
+Software, you must include the original license texts for those components and comply with
+their terms.
+
+Disclaimer of Warranty
+----------------------
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+Limitation of Liability
+-----------------------
+IN NO EVENT WILL WEBSAAS.AI OR ITS CONTRIBUTORS BE LIABLE FOR ANY INDIRECT, SPECIAL,
+INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OF THE SOFTWARE.
+
+If you have questions about this license or require a different commercial license, contact
+WebSaaS.ai at https://websaas.ai.

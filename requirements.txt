@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+python-multipart
+pillow
+pyjwt
+ffmpeg-python
+python-dotenv

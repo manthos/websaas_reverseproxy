@@ -1,0 +1,68 @@
+{
+    "type": "object",
+    "title": "VideoClip",
+    "fields": [
+        {
+            "id": "audiovideomedia",
+            "type": "fileUpload",
+            "label": "Audio/Video Input Upload",
+            "maxSize": 10,
+            "required": true,
+            "helperText": "Upload an audio or a video file",
+            "acceptedFileTypes": ["audio/*", "video/*"]
+        },
+        {
+            "id": "background_image",
+            "type": "fileUpload",
+            "label": "Background Image",
+            "maxSize": 1,
+            "required": "false",
+            "helperText": "Upload an image background file",
+            "acceptedFileTypes": ["image/*"]
+        },
+        {
+            "id": "artist_image",
+            "type": "fileUpload",
+            "label": "Artist Image",
+            "maxSize": 1,
+            "required": "false",
+            "helperText": "Upload an image for the artist",
+            "acceptedFileTypes": ["image/*"]
+        },
+        {
+            "id": "song_title",
+            "type": "text",
+            "label": "Song title",
+            "default": "Song Title",
+            "required": "false"
+        },
+        {
+            "id": "artist_name",
+            "type": "text",
+            "label": "Artist name",
+            "default": "Artist Name",
+            "required": "false"
+        }
+        /* ... other fields omitted for brevity ... */
+    ],
+    "formId": "music-videoclip",
+    "output": [{ "id": "processedVideo", "type": "video", "format": "mp4", "storage": { "path": "/uploads/", "type": "filesystem" } }],
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "actions": {
+        "submit": { "method": "POST", "endpoint": "https://aiservice.openresell.com:20400/process-videoclip/" },
+    "stopaction": { "command": "curl -X GET 'https://dashboard.tensordock.com/api/v2/instances/cd6d98ec-6030-4029-a201-0b59536ad9a8/stop' -H 'Authorization: Bearer REPLACE_API_TOKEN' -H 'Content-Type: application/json' -H 'Accept: application/json'", "resultvariable": "data:attributes:status", "resultvalue": "stopping" },
+    "testaction": { "command": "curl -X GET 'https://dashboard.tensordock.com/api/v2/instances/cd6d98ec-6030-4029-a201-0b59536ad9a8' -H 'Authorization: Bearer REPLACE_API_TOKEN' -H 'Content-Type: application/json' -H 'Accept: application/json'", "resultvariable": "status" },
+    "startaction": { "command": "curl -X GET 'https://dashboard.tensordock.com/api/v2/instances/cd6d98ec-6030-4029-a201-0b59536ad9a8/start' -H 'Authorization: Bearer REPLACE_API_TOKEN' -H 'Content-Type: application/json' -H 'Accept: application/json'", "resultvariable": "data:attributes:status", "resultvalue": "starting" },
+    "statusaction": { "command": "curl -X GET 'https://dashboard.tensordock.com/api/v2/instances/cd6d98ec-6030-4029-a201-0b59536ad9a8' -H 'Authorization: Bearer REPLACE_API_TOKEN' -H 'Content-Type: application/json' -H 'Accept: application/json'", "resultvariable": "status" }
+    },
+    "command": "/home/user/fast_video/myenv/bin/python /home/user/fast_video/fast_video.py <audiovideomedia> <processedVideo> --artist_image <artist_image> --lyrics_file <lyricsfile> --lyric_highlight_color <lyric_highlight_color> --lyric_color <lyric_color> --song_title <song_title> --artist_name <artist_name> --output_width <output_width> --output_height <output_height> --show_watermark",
+    "description": "Videoclip out of song audio and video",
+    "role_limits": {
+        "pro": [{ "type": "media", "value": "150", "attribute": "duration" }],
+        "basic": [{ "type": "media", "value": "15", "attribute": "duration" }],
+        "premium": [{ "type": "media", "value": "25", "attribute": "duration" }],
+        "registered": [{ "type": "media", "value": "10", "attribute": "duration" }]
+    },
+    "allowed_roles": ["registered", "basic", "premium", "pro"],
+    "main_input_id": "audiovideomedia"
+}

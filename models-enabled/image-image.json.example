@@ -1,0 +1,110 @@
+{
+    "type": "object",
+    "title": "Image-to-Image",
+    "fields": [
+        {
+            "id": "media",
+            "type": "fileUpload",
+            "label": "Media Upload",
+            "maxSize": 10,
+            "required": true,
+            "helperText": "Upload an image file",
+            "acceptedFileTypes": [
+                "image/*"
+            ]
+        },
+        {
+            "id": "negate",
+            "max": 100,
+            "min": 0,
+            "type": "number",
+            "label": "Negate (0-100%)",
+            "default": 15,
+            "required": true,
+            "helperText": "Set negate percentage between 0 and 100."
+        },
+        {
+            "id": "areaThreshold",
+            "max": 100,
+            "min": 0,
+            "type": "number",
+            "label": "Area Threshold (0-100)",
+            "default": 70,
+            "required": true,
+            "helperText": "Set the area threshold between 0 and 100."
+        },
+        {
+            "id": "connectedComponents",
+            "type": "select",
+            "label": "Connected Components",
+            "default": 4,
+            "options": [
+                { "label": "0", "value": 0 },
+                { "label": "4", "value": 4 },
+                { "label": "8", "value": 8 }
+            ],
+            "required": true,
+            "helperText": "Choose 0, 4, or 8 connected components."
+        },
+        {
+            "id": "alpha",
+            "type": "select",
+            "label": "Alpha",
+            "default": "off",
+            "options": [
+                { "label": "Activate", "value": "activate" },
+                { "label": "Associate", "value": "associate" },
+                { "label": "Background", "value": "background" },
+                { "label": "Copy", "value": "copy" },
+                { "label": "Deactivate", "value": "deactivate" },
+                { "label": "Disassociate", "value": "disassociate" },
+                { "label": "Extract", "value": "extract" },
+                { "label": "Off", "value": "off" },
+                { "label": "Off-if-opaque", "value": "off-if-opaque" },
+                { "label": "On", "value": "on" },
+                { "label": "Opaque", "value": "opaque" },
+                { "label": "Remove", "value": "remove" },
+                { "label": "Set", "value": "set" },
+                { "label": "Shape", "value": "shape" },
+                { "label": "Transparent", "value": "transparent" }
+            ],
+            "required": true,
+            "helperText": "Choose an alpha value."
+        }
+    ],
+    "formId": "convert-processing-form",
+    "output": [
+        {
+            "id": "processedImage",
+            "type": "image",
+            "label": "Processed Image",
+            "format": "png",
+            "storage": { "path": "/uploads/", "type": "filesystem" }
+        },
+        {
+            "id": "processedImageMask",
+            "type": "image",
+            "label": "Processed Image Mask",
+            "format": "png",
+            "storage": { "path": "/uploads/", "type": "filesystem" }
+        }
+    ],
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "actions": {
+        "submit": { "method": "POST", "endpoint": "https://aiservice.openresell.com:20400/process-image/" },
+    "stopaction": { "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/stop/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8' --data-urlencode 'disassociate_resources=true'", "resultvariable": "success" },
+    "testaction": { "command": "curl --location --request POST 'https://dashboard.tensordock.com/api/v0/auth/test' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN'", "resultvariable": "success" },
+    "startaction": { "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/start/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8'", "resultvariable": "success" },
+    "statusaction": { "command": "curl --location 'https://dashboard.tensordock.com/api/v0/client/get/single' --data-urlencode 'api_key=REPLACE_API_KEY' --data-urlencode 'api_token=REPLACE_API_TOKEN' --data-urlencode 'server=cd6d98ec-6030-4029-a201-0b59536ad9a8'", "resultvariable": "virtualmachines:status" }
+    },
+    "command": "convert <media> ( -clone 0 -negate -threshold <negate>% -type bilevel +write <processedImageMask> -define connected-components:area-threshold=<areaThreshold> -define connected-components=>mean-color=true -connected-components <connectedComponents> +write <processedImageMask> ) -alpha <alpha> -compose copy_opacity -composite <processedImage>",
+    "description": "Form for AI placeholder model",
+    "role_limits": {
+        "pro": [{ "type": "media", "value": "3840", "attribute": "resolution" }],
+        "basic": [{ "type": "media", "value": "800", "attribute": "resolution" }],
+        "premium": [{ "type": "media", "value": "1024", "attribute": "resolution" }],
+        "registered": [{ "type": "media", "value": "512", "attribute": "resolution" }]
+    },
+    "allowed_roles": ["registered", "basic", "premium", "pro"],
+    "main_input_id": "media"
+}

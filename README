@@ -1,0 +1,20 @@
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+#Use generate_keys.py to create the necessary keys and ensure
+#Update SAAS_PUBLIC_KEY_PATH  and FASTAPI_PRIVATE_KEY_PATH constants in the script and ensure they are set correctly
+
+#Review .env file and ensure keys and SERVER_ID are set 
+#SERVER_ID must be a stable, unique identifier agreed with the SaaS side (or stored in the model config server_id entries). It can be any string, but it must match what the SaaS expects in the iss claim.
+#If you need to generate one locally (and will register it or tell the provider), make a random base64 id:
+python - <<'PY'
+import os,base64
+print("base64:" + base64.b64encode(os.urandom(24)).decode())
+PY
+#Ensure you inform the SaaS provider of the generated SERVER_ID by including it also in your model json config files (which also reside on the SaaS side)
+
+#Add this to your crontab to automatically start the proxy on your AI service node
+@reboot cd /home/user/websaas_reverseproxy/; source venv/bin/activate; (nohup python websaas_reverseproxy.py &) ;
+
+

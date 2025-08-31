@@ -1,0 +1,27 @@
+## Ignore private keys
+keys/fastapi_private.pem
+
+# Uploads and runtime data
+uploads/*
+*.log
+
+#configs
+models-enabled/*.json
+
+# Virtual environments
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+#old configs
+config.json
+websaas_reverseproxy.v1.py
+
+# OS files
+.DS_Store
+
+# Editor
+.vscode/
+
